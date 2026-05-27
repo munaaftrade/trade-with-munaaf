@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trade With Munaaf</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--gold-primary:#D4A017;
+--gold-bright:#F5C842;
+--gold-glow:rgba(212,160,23,0.25);
+
+--bg-card:rgba(255,255,255,0.05);
+--border-glass:rgba(255,255,255,0.10);
+
+--text-white:#F5F5F5;
+--text-muted:#9CA3AF;
+--green:#2ED47A;
+
+--radius:18px;
+--transition:0.3s ease;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+
+background:
+radial-gradient(circle at top left,
+rgba(255,0,150,0.20),
+transparent 28%),
+
+radial-gradient(circle at top right,
+rgba(0,140,255,0.18),
+transparent 30%),
+
+radial-gradient(circle at bottom,
+rgba(0,255,170,0.10),
+transparent 35%),
+
+linear-gradient(180deg,
+#090914 0%,
+#111827 45%,
+#050816 100%);
+
+font-family:'DM Sans',sans-serif;
+color:var(--text-white);
+overflow-x:hidden;
+-webkit-font-smoothing:antialiased;
+}
+
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at center,
+rgba(255,255,255,0.03),
+transparent 60%);
+pointer-events:none;
+z-index:0;
+}
+
+.ticker-bar{
+background:rgba(0,0,0,0.35);
+border-bottom:1px solid rgba(255,255,255,0.08);
+overflow:hidden;
+padding:8px 0;
+position:sticky;
+top:0;
+backdrop-filter:blur(10px);
+z-index:999;
+}
+
+.ticker-track{
+display:flex;
+gap:40px;
+white-space:nowrap;
+animation:ticker 22s linear infinite;
+}
+
+.ticker-item{
+font-size:11px;
+font-family:'DM Mono',monospace;
+color:#d1d5db;
+}
+
+.up{
+color:#2ED47A;
+}
+
+.down{
+color:#ff5a5a;
+}
+
+@keyframes ticker{
+from{
+transform:translateX(0);
+}
+to{
+transform:translateX(-50%);
+}
+}
+
+.page-wrap{
+max-width:430px;
+margin:auto;
+padding:0 20px 70px;
+position:relative;
+z-index:1;
+}
+
+.hero{
+padding:28px 0 18px;
+text-align:center;
+}
+
+.live-badge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:6px 14px;
+border-radius:20px;
+background:rgba(46,212,122,0.10);
+border:1px solid rgba(46,212,122,0.28);
+font-size:11px;
+font-weight:700;
+letter-spacing:0.12em;
+text-transform:uppercase;
+color:var(--green);
+margin-bottom:18px;
+}
+
+.live-dot{
+width:7px;
+height:7px;
+border-radius:50%;
+background:var(--green);
+animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+0%,100%{
+box-shadow:0 0 0 0 rgba(46,212,122,0.4);
+}
+50%{
+box-shadow:0 0 0 8px rgba(46,212,122,0);
+}
+}
+
+.profile-ring-wrap{
+position:relative;
+display:flex;
+justify-content:center;
+margin-bottom:16px;
+}
+
+#profileImg{
+width:140px;
+height:140px;
+border-radius:50%;
+object-fit:cover;
+object-position:center top;
+
+border:3px solid rgba(255,255,255,0.08);
+
+box-shadow:
+0 0 25px rgba(255,0,150,0.35),
+0 0 55px rgba(0,140,255,0.28),
+0 0 90px rgba(0,255,170,0.18);
+
+}
+
+.profile-verified{
+position:absolute;
+bottom:2px;
+right:calc(50% - 70px);
+width:30px;
+height:30px;
+background:var(--green);
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:14px;
+font-weight:bold;
+border:3px solid #050816;
+}
+
+.hero-label{
+font-size:11px;
+letter-spacing:0.18em;
+text-transform:uppercase;
+color:var(--gold-bright);
+margin-bottom:8px;
+font-weight:700;
+}
+
+.hero-name{
+font-family:'Bebas Neue',sans-serif;
+font-size:42px;
+line-height:1;
+letter-spacing:0.04em;
+margin-bottom:10px;
+}
+
+.name-gold{
+display:block;
+font-size:58px;
+color:var(--gold-bright);
+
+text-shadow:
+0 0 12px rgba(245,200,66,0.75),
+0 0 32px rgba(212,160,23,0.42),
+0 0 65px rgba(212,160,23,0.18);
+}
+
+.hero-sub{
+font-size:13px;
+color:var(--text-muted);
+margin-bottom:18px;
+}
+
+.stat-row{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+margin-bottom:12px;
+}
+
+.stat-pill{
+padding:6px 14px;
+border-radius:20px;
+background:var(--bg-card);
+border:1px solid var(--border-glass);
+font-size:12px;
+backdrop-filter:blur(10px);
+}
+
+.cta-wrap{
+margin-bottom:10px;
+}
+
+.tap-indicator{
+text-align:center;
+font-size:30px;
+margin-bottom:10px;
+animation:bounce 1.2s infinite;
+}
+
+@keyframes bounce{
+0%,100%{
+transform:translateY(0);
+}
+50%{
+transform:translateY(8px);
+}
+}
+
+.cta-btn{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:12px;
+
+width:100%;
+padding:18px 22px;
+
+border:none;
+border-radius:16px;
+
+background:linear-gradient(160deg,#F5C842 0%,#D4A017 55%,#B88610 100%);
+
+font-size:15px;
+font-weight:700;
+text-decoration:none;
+color:#120A00;
+
+transition:0.3s ease;
+
+box-shadow:
+0 5px 24px rgba(212,160,23,0.45),
+0 2px 8px rgba(0,0,0,0.4);
+
+position:relative;
+overflow:hidden;
+}
+
+.cta-btn:hover{
+transform:translateY(-2px) scale(1.02);
+}
+
+.cta-btn:active{
+transform:scale(0.98);
+}
+
+.cta-icon{
+font-size:22px;
+}
+
+.cta-text{
+display:flex;
+flex-direction:column;
+align-items:flex-start;
+}
+
+.cta-text-main{
+font-size:16px;
+font-weight:700;
+line-height:1.1;
+}
+
+.cta-text-sub{
+font-size:11px;
+opacity:0.7;
+}
+
+.cta-meta{
+display:flex;
+justify-content:center;
+gap:14px;
+flex-wrap:wrap;
+font-size:12px;
+color:var(--text-muted);
+margin:12px 0 16px;
+}
+
+.join-counter{
+text-align:center;
+font-size:13px;
+margin-bottom:26px;
+color:var(--text-muted);
+}
+
+.join-counter span{
+color:var(--gold-bright);
+font-weight:700;
+}
+
+.section-title{
+font-family:'Bebas Neue',sans-serif;
+font-size:28px;
+letter-spacing:0.06em;
+margin-bottom:4px;
+}
+
+.section-title span{
+color:var(--gold-bright);
+}
+
+.section-subtitle{
+font-size:13px;
+color:var(--text-muted);
+margin-bottom:20px;
+}
+
+.feature-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-bottom:36px;
+}
+
+.feature-card{
+background:rgba(255,255,255,0.04);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:18px;
+padding:18px;
+backdrop-filter:blur(12px);
+transition:0.3s ease;
+}
+
+.feature-card:hover{
+transform:translateY(-3px);
+background:rgba(255,255,255,0.06);
+}
+
+.feature-icon{
+font-size:26px;
+margin-bottom:10px;
+display:block;
+}
+
+.feature-title{
+font-size:14px;
+font-weight:700;
+margin-bottom:5px;
+}
+
+.feature-desc{
+font-size:11px;
+color:var(--text-muted);
+line-height:1.5;
+}
+
+.disclaimer{
+margin-top:30px;
+padding:16px;
+border-radius:14px;
+background:rgba(255,255,255,0.03);
+border:1px solid rgba(255,255,255,0.08);
+font-size:11px;
+line-height:1.7;
+color:var(--text-muted);
+}
+
+.disclaimer strong{
+display:block;
+margin-bottom:5px;
+color:#fff;
+}
+
+@media(max-width:380px){
+
+.hero-name{
+font-size:34px;
+}
+
+.name-gold{
+font-size:48px;
+}
+
+.feature-grid{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="ticker-bar">
+<div class="ticker-track">
+
+<span class="ticker-item">SENSEX <span class="up">▲ 0.54%</span></span>
+<span class="ticker-item">BANK NIFTY <span class="up">▲ 1.12%</span></span>
+<span class="ticker-item">NIFTY 50 <span class="up">▲ 0.78%</span></span>
+<span class="ticker-item">USDINR <span class="down">▼ 0.21%</span></span>
+<span class="ticker-item">RELIANCE <span class="up">▲ 1.34%</span></span>
+<span class="ticker-item">TCS <span class="up">▲ 0.89%</span></span>
+
+<span class="ticker-item">SENSEX <span class="up">▲ 0.54%</span></span>
+<span class="ticker-item">BANK NIFTY <span class="up">▲ 1.12%</span></span>
+<span class="ticker-item">NIFTY 50 <span class="up">▲ 0.78%</span></span>
+<span class="ticker-item">USDINR <span class="down">▼ 0.21%</span></span>
+<span class="ticker-item">RELIANCE <span class="up">▲ 1.34%</span></span>
+<span class="ticker-item">TCS <span class="up">▲ 0.89%</span></span>
+
+</div>
+</div>
+
+<div class="page-wrap">
+
+<section class="hero">
+
+<div class="live-badge">
+<span class="live-dot"></span>
+CHANNEL LIVE & ACTIVE
+</div>
+
+<div class="profile-ring-wrap">
+
+<img
+id="profileImg"
+src="munaaf.jpg"
+alt="Trade With Munaaf">
+
+<div class="profile-verified">✓</div>
+
+</div>
+
+<div class="hero-label">
+OFFICIAL TELEGRAM CHANNEL
+</div>
+
+<h1 class="hero-name">
+OFFICIAL CHANNEL
+<span class="name-gold">
+Trade With Munaaf
+</span>
+</h1>
+
+<p class="hero-sub">
+<strong>Stock Market Analysis</strong>
+· Indian Markets
+</p>
+
+<div class="stat-row">
+
+<div class="stat-pill">
+📊 Daily Analysis
+</div>
+
+<div class="stat-pill">
+🎓 Free Education
+</div>
+
+<div class="stat-pill">
+⚡ Live Alerts
+</div>
+
+</div>
+
+</section>
+
+<section class="cta-wrap">
+
+<div class="tap-indicator">
+👇👇
+</div>
+
+<a
+href="https://t.me/+8RpqREV2uic0NDk1"
+target="_blank"
+class="cta-btn">
+
+<span class="cta-icon">
+✈️
+</span>
+
+<span class="cta-text">
+
+<span class="cta-text-main">
+JOIN TELEGRAM CHANNEL
+</span>
+
+<span class="cta-text-sub">
+Tap Karo & Abhi Join Karo
+</span>
+
+</span>
+
+</a>
+
+</section>
+
+<div class="cta-meta">
+<span>✓ Free to Join</span>
+<span>✓ No Charges</span>
+<span>✓ Instant Access</span>
+</div>
+
+<div class="join-counter">
+🔥 <span id="joinCount">0</span> logon ne abhi join kiya
+</div>
+
+<section>
+
+<div class="section-title">
+What You <span>Get</span>
+</div>
+
+<div class="section-subtitle">
+Everything you need to trade smarter
+</div>
+
+<div class="feature-grid">
+
+<div class="feature-card">
+<span class="feature-icon">📈</span>
+<div class="feature-title">Daily Market Analysis</div>
+<div class="feature-desc">
+Pre-market & post-market breakdowns every trading day
+</div>
+</div>
+
+<div class="feature-card">
+<span class="feature-icon">🎯</span>
+<div class="feature-title">Stock Calls</div>
+<div class="feature-desc">
+Clear entry, target & stop-loss levels
+</div>
+</div>
+
+<div class="feature-card">
+<span class="feature-icon">📚</span>
+<div class="feature-title">Free Education</div>
+<div class="feature-desc">
+Learn trading from basics to advanced
+</div>
+</div>
+
+<div class="feature-card">
+<span class="feature-icon">⚡</span>
+<div class="feature-title">Market Updates</div>
+<div class="feature-desc">
+Instant alerts when opportunities arise
+</div>
+</div>
+
+</div>
+
+</section>
+
+<div class="disclaimer">
+
+<strong>
+⚠️ Disclaimer
+</strong>
+
+All content shared on this channel is purely for educational and informational purposes. Trading in stocks and derivatives involves risk. Please consult a SEBI-registered advisor before investing.
+
+</div>
+
+</div>
+
+<script>
+
+function animateCounter(el,target,duration){
+
+let start=0;
+
+const step=Math.ceil(target/(duration/30));
+
+const timer=setInterval(()=>{
+
+start=Math.min(start+step,target);
+
+el.textContent=start.toLocaleString('en-IN');
+
+if(start>=target){
+clearInterval(timer);
+}
+
+},30);
+
+}
+
+const joinCountEl=document.getElementById('joinCount');
+
+setTimeout(()=>{
+animateCounter(joinCountEl,18432,1200);
+},500);
+
+</script>
+
+</body>
+</html>
